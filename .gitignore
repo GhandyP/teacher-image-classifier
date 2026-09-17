@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Local Pi runtime state
+.atl/
+
+# Local tooling state
+.codegraph/
+
+# Local review artifacts (may contain student work — never commit)
+reviews/
+
+# Local UI secrets
+ui/.streamlit/secrets.toml
+
+# Environments
+.venv/
+venv/
