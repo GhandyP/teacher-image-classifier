@@ -14,3 +14,7 @@ scoring:
 logging:
   level: INFO
   json: true
+# Keep the local image-size cap and remote URL ingestion disabled for privacy.
+image:
+  max_bytes: 10485760  # 10 MiB maximum image size.
+  allow_remote_urls: false  # Local paths only by default.
