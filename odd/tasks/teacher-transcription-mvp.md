@@ -124,11 +124,19 @@ Three defects were confirmed by the parent with executable evidence and have sin
 
 Additional known-open items (no code defect claimed): the transcription path has never been executed against the live Gemini API (all tests are mocked); the Streamlit UI has never actually been launched; no real handwriting fixture exists; unresolved product decisions 1, 2, 4, 5, 6; deferred work (XLSX export, batch concurrency, legacy `min_confidence` unused, `requirements.txt`/`pyproject.toml` duplication, `LoggingConfig.json` cosmetic warning); and nothing is committed yet.
 
+## Delivery
+- Branch `main`, pushed to `origin` (GitHub `GhandyP/teacher-image-classifier`) on request.
+- 10 work-unit commits from `2f6bc05` to `651d860`, each mapping to one deliverable: ignore rules, ODD record, domain models, ingestion hardening, transcription service, exports, CLI commands, review UI, CI, and docs.
+- Pre-push audit: 26 files changed (+2270/-15), 9 test files included, and no real `.env`, caches, local tooling indexes, or unrelated repositories entered the commits.
+- Operational note: two unrelated git repositories were nested inside the project directory and were moved to `/root/` (their own remotes and histories intact) before staging, since `git add .` would have recorded broken embedded-repository links.
+- Git identity for these commits was set repository-locally to the author of the existing history; no global git configuration was changed.
+- Not delivered: nothing is merged to a release, no tag, and the transcription path has still never run against the live Gemini API.
+
 ## Progress
 - Exploration: complete; repository map and risks recorded in project memory.
 - Product direction: accepted in conversation; teacher transcription and human review are the focus.
 - ODD tracking: initialized.
-- Current task: none. All 8 original work units plus ODD-09 defect fixes are complete and verified; the 3 audit defects are closed.
+- Current task: none. All 8 original work units plus ODD-09 defect fixes are complete, verified, committed, and pushed.
 - Verification evidence: final suite 73 passed under BOTH invocation styles (`uv run --no-project --with-requirements requirements.txt pytest` with no `PYTHONPATH`, and the `PYTHONPATH=.` form), 2 pre-existing warnings only. Progression: ODD-02 17 / ODD-03 23 / ODD-04 32 / ODD-05 42 / ODD-06 50 / ODD-07 67 / ODD-08 69 / ODD-09 73.
-- Engram mirror: id 102 saved; the local task file remains authoritative.
-- Next step: user decision on delivery (commit/push) and a real-data pilot with anonymized fixtures; optional follow-ups: XLSX export, batch concurrency, and the unused legacy `min_confidence`.
+- Engram mirror: topic `odd/teacher-transcription-mvp/tasks`; the local task file remains authoritative.
+- Next step: a real-data pilot with anonymized evaluations, which is the only way to validate the transcription prompt, and the unresolved product decisions (languages, page grouping, student identifiers, provider data-use terms, export format).
