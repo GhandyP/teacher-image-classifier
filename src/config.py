@@ -58,6 +58,13 @@ class LoggingConfig(BaseModel):
     json: bool = Field(default=True)
 
 
+class ImageConfig(BaseModel):
+    """Image ingestion configuration."""
+
+    max_bytes: int = Field(default=10 * 1024 * 1024, ge=1024, le=100 * 1024 * 1024)
+    allow_remote_urls: bool = False
+
+
 class AppConfig(BaseModel):
     """Top-level application configuration."""
 
@@ -66,6 +73,7 @@ class AppConfig(BaseModel):
     rate_limit: RateLimitConfig = RateLimitConfig()
     scoring: ScoringConfig = ScoringConfig()
     logging: LoggingConfig = LoggingConfig()
+    image: ImageConfig = ImageConfig()
 
 
 @dataclass(frozen=True)
@@ -158,6 +166,7 @@ def load_config(
             "level": os.getenv("LOG_LEVEL"),
             "json": _to_bool(os.getenv("LOG_JSON")),
         },
+        "image": {"max_bytes": _to_int(os.getenv("IMAGE_MAX_BYTES"))},
     }
 
     merged = _deep_merge(yaml_data, env_data)
