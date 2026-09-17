@@ -1,6 +1,6 @@
 """Prompt tests."""
 
-from src.prompts import PromptContext, default_registry, parse_json_output
+from src.prompts import PromptContext, default_registry, parse_json_output, transcription_prompt
 
 
 def test_prompt_registry_lists_prompts() -> None:
@@ -20,3 +20,12 @@ def test_parse_json_output_handles_code_fence() -> None:
     text = "```json\n{\"label\": \"safe\", \"confidence\": 0.9}\n```"
     parsed = parse_json_output(text)
     assert parsed["label"] == "safe"
+
+
+def test_transcription_prompt_is_literal_and_not_grading() -> None:
+    rendered = transcription_prompt()
+    combined = f"{rendered['system']} {rendered['user']}".lower()
+
+    assert "transcribe" in combined
+    assert "literally" in combined
+    assert "never grade" in combined
